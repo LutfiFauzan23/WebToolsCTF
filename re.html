@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse Engineering - CTF Notes</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <button class="burger-menu" id="burgerMenu" aria-label="Toggle sidebar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <h1 class="navbar-title">CTF Notes</h1>
+            <div class="navbar-spacer"></div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <a href="../index.html" class="nav-item">Home</a>
+            <a href="forensics.html" class="nav-item">Forensics</a>
+            <a href="web.html" class="nav-item">Web Exploitation</a>
+            <a href="crypto.html" class="nav-item">Cryptography</a>
+            <a href="pwn.html" class="nav-item">PWN</a>
+            <a href="osint.html" class="nav-item">OSINT</a>
+            <a href="re.html" class="nav-item active">Reverse Engineering</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="hero">
+                <h1>Reverse Engineering</h1>
+                <p>Decompilation, disassembly, binary analysis, and software cracking</p>
+            </section>
+
+            <section class="search-section">
+                <input 
+                    type="text" 
+                    id="globalSearch" 
+                    class="search-input" 
+                    placeholder="Search commands... (Type to filter)"
+                    aria-label="Search commands"
+                >
+            </section>
+
+            <!-- Command Blocks -->
+
+            <div class="command-block">
+                <h2 class="command-title">File Type Detection</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">file binary
+file -b binary
+readelf -h binary</pre>
+                </div>
+                <p class="command-description">Identify binary type and architecture. File command shows basic info, readelf displays ELF header details. Essential first step in reverse engineering.</p>
+                <div class="tags">
+                    <span class="tag">reversing</span>
+                    <span class="tag">analysis</span>
+                    <span class="tag">binary</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Strings Extraction</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">strings binary
+strings -n 10 binary
+strings binary | grep -i flag</pre>
+                </div>
+                <p class="command-description">Extract printable strings from binary files. Often reveals hardcoded strings, URLs, file paths, or even flags. Quick reconnaissance technique.</p>
+                <div class="tags">
+                    <span class="tag">reversing</span>
+                    <span class="tag">strings</span>
+                    <span class="tag">recon</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Disassembly with objdump</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">objdump -d binary | head -50
+objdump -d -M intel binary
+objdump -S binary</pre>
+                </div>
+                <p class="command-description">Disassemble binary code to assembly language. Intel syntax is more readable. -S shows source code if debug symbols are present.</p>
+                <div class="tags">
+                    <span class="tag">reversing</span>
+                    <span class="tag">disassembly</span>
+                    <span class="tag">asm</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">IDA Pro / Ghidra Disassembler</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">ghidra &amp;
+# Load binary and analyze
+# View decompiled code</pre>
+                </div>
+                <p class="command-description">Professional-grade disassemblers with decompilation. Ghidra is free and open-source. IDA Pro is industry standard. Both provide GUI for easier analysis.</p>
+                <div class="tags">
+                    <span class="tag">reversing</span>
+                    <span class="tag">decompilation</span>
+                    <span class="tag">tool</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Hex Editor Analysis</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">hexdump -C binary
+xxd binary
+xxd -l 256 binary</pre>
+                </div>
+                <p class="command-description">View raw hexadecimal content of binaries. Helps identify magic bytes, data sections, and embedded files. -C and xxd show both hex and ASCII.</p>
+                <div class="tags">
+                    <span class="tag">reversing</span>
+                    <span class="tag">hex</span>
+                    <span class="tag">binary</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Symbol Table Analysis</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">nm binary
+nm -D binary
+readelf -s binary</pre>
+                </div>
+                <p class="command-description">Extract function and variable names from binaries. Dynamic symbols (-D) show functions used at runtime. Debug symbols provide even more information.</p>
+                <div class="tags">
+                    <span class="tag">reversing</span>
+                    <span class="tag">symbols</span>
+                    <span class="tag">analysis</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Decompiling Java with CFR</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">cfr program.jar
+cfr program.jar --outputdir src/</pre>
+                </div>
+                <p class="command-description">Decompile Java .class files and JAR archives back to source code. CFR is modern and handles advanced Java features well.</p>
+                <div class="tags">
+                    <span class="tag">reversing</span>
+                    <span class="tag">java</span>
+                    <span class="tag">decompilation</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Python Bytecode Decompilation</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">uncompyle6 program.pyc
+decompyle3 program.pyc</pre>
+                </div>
+                <p class="command-description">Reverse Python .pyc compiled files back to Python source. Useful for analyzing compiled Python applications and finding embedded logic.</p>
+                <div class="tags">
+                    <span class="tag">reversing</span>
+                    <span class="tag">python</span>
+                    <span class="tag">decompilation</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">APK Analysis (Android)</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">apktool d app.apk
+dex2jar app.dex
+cfr app.jar</pre>
+                </div>
+                <p class="command-description">Analyze Android APK files. Apktool extracts and decompiles resources. Dex2jar converts DEX to JAR, then CFR decompiles to Java source.</p>
+                <div class="tags">
+                    <span class="tag">reversing</span>
+                    <span class="tag">android</span>
+                    <span class="tag">apk</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">GDB Interactive Debugging</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">gdb ./binary
+(gdb) break main
+(gdb) run
+(gdb) disassemble main
+(gdb) info registers</pre>
+                </div>
+                <p class="command-description">Step through binary execution with full control. Set breakpoints, inspect memory, view registers. Critical for understanding program behavior at runtime.</p>
+                <div class="tags">
+                    <span class="tag">reversing</span>
+                    <span class="tag">debugging</span>
+                    <span class="tag">gdb</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">License String Cracking</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">strings binary | grep -i license
+strings binary | grep -E "^[A-Z0-9]{16,}"</pre>
+                </div>
+                <p class="command-description">Search for hardcoded license keys or validation strings. License checks are often found as plaintext in compiled code or simple transformations.</p>
+                <div class="tags">
+                    <span class="tag">reversing</span>
+                    <span class="tag">cracking</span>
+                    <span class="tag">license</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

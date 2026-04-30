@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptography - CTF Notes</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <button class="burger-menu" id="burgerMenu" aria-label="Toggle sidebar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <h1 class="navbar-title">CTF Notes</h1>
+            <div class="navbar-spacer"></div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <a href="../index.html" class="nav-item">Home</a>
+            <a href="forensics.html" class="nav-item">Forensics</a>
+            <a href="web.html" class="nav-item">Web Exploitation</a>
+            <a href="crypto.html" class="nav-item active">Cryptography</a>
+            <a href="pwn.html" class="nav-item">PWN</a>
+            <a href="osint.html" class="nav-item">OSINT</a>
+            <a href="re.html" class="nav-item">Reverse Engineering</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="hero">
+                <h1>Cryptography</h1>
+                <p>Encryption, decryption, hash cracking, and cryptographic analysis</p>
+            </section>
+
+            <section class="search-section">
+                <input 
+                    type="text" 
+                    id="globalSearch" 
+                    class="search-input" 
+                    placeholder="Search commands... (Type to filter)"
+                    aria-label="Search commands"
+                >
+            </section>
+
+            <!-- Command Blocks -->
+
+            <div class="command-block">
+                <h2 class="command-title">Hash Identification</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">hash-identifier
+haiti &lt;hash&gt;
+hashid '&lt;hash&gt;'</pre>
+                </div>
+                <p class="command-description">Identify hash types by length and format. Tools like hash-identifier and haiti help determine the hashing algorithm used before attempting to crack.</p>
+                <div class="tags">
+                    <span class="tag">crypto</span>
+                    <span class="tag">hashing</span>
+                    <span class="tag">identification</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">MD5 Cracking with hashcat</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">hashcat -m 0 -a 0 hash.txt wordlist.txt
+hashcat -m 0 -a 3 hash.txt ?a?a?a?a</pre>
+                </div>
+                <p class="command-description">Crack MD5 hashes using dictionary attack (-a 0) or brute force (-a 3). The -m flag specifies hash type (0 for MD5). GPU acceleration makes this very fast.</p>
+                <div class="tags">
+                    <span class="tag">crypto</span>
+                    <span class="tag">hashing</span>
+                    <span class="tag">crack</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">ROT13 Cipher</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">echo "plaintext" | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+# Online: rot13.com</pre>
+                </div>
+                <p class="command-description">Simple substitution cipher rotating letters by 13 positions. Applying twice returns original text. Quick and easy to decode, often used for obfuscation.</p>
+                <div class="tags">
+                    <span class="tag">crypto</span>
+                    <span class="tag">cipher</span>
+                    <span class="tag">substitution</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Caesar Cipher Brute Force</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">for i in {0..25}; do echo "$((i)): $(echo 'ciphertext' | tr 'A-Za-z' 'N-ZA-Mn-za-m')"; done</pre>
+                </div>
+                <p class="command-description">Brute force all 26 possible Caesar cipher shifts. Each shift is displayed with its index, making it easy to spot the correct plaintext.</p>
+                <div class="tags">
+                    <span class="tag">crypto</span>
+                    <span class="tag">cipher</span>
+                    <span class="tag">brute-force</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Base64 Encoding/Decoding</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">echo "plaintext" | base64
+echo "cGxhaW50ZXh0Cg==" | base64 -d</pre>
+                </div>
+                <p class="command-description">Encode text to base64 or decode base64 strings. Base64 is commonly used for obfuscation and data transmission, not true encryption.</p>
+                <div class="tags">
+                    <span class="tag">crypto</span>
+                    <span class="tag">encoding</span>
+                    <span class="tag">base64</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">OpenSSL Encryption</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">openssl enc -aes-256-cbc -in file.txt -out file.enc -K key -iv iv
+openssl enc -aes-256-cbc -d -in file.enc -out file.txt -K key -iv iv</pre>
+                </div>
+                <p class="command-description">Encrypt and decrypt files using AES-256-CBC. Provides symmetric encryption with specified key and initialization vector. Useful for cryptographic challenges.</p>
+                <div class="tags">
+                    <span class="tag">crypto</span>
+                    <span class="tag">encryption</span>
+                    <span class="tag">aes</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">RSA Key Analysis</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">openssl rsa -in key.pem -text -noout
+openssl rsa -pubin -in pubkey.pem -text -noout</pre>
+                </div>
+                <p class="command-description">Examine RSA key components including modulus, exponent, and prime factors. Useful for identifying weak keys or extracting public information for cryptanalysis.</p>
+                <div class="tags">
+                    <span class="tag">crypto</span>
+                    <span class="tag">rsa</span>
+                    <span class="tag">key-analysis</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Hex to ASCII Conversion</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">echo "48656c6c6f" | xxd -r -p
+printf '\x48\x65\x6c\x6c\x6f\n'
+echo "48656c6c6f" | sed 's/../\\x&/g' | xargs printf</pre>
+                </div>
+                <p class="command-description">Convert hexadecimal strings to ASCII text. Multiple methods available: xxd, printf, and sed. Essential for decoding encoded messages.</p>
+                <div class="tags">
+                    <span class="tag">crypto</span>
+                    <span class="tag">encoding</span>
+                    <span class="tag">conversion</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Online Cryptanalysis Tools</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">dcode.fr
+rumkin.com/tools/cipher
+cryptii.com</pre>
+                </div>
+                <p class="command-description">Online resources for cipher identification, analysis, and breaking. Support various classical and modern ciphers with automatic tools and frequency analysis.</p>
+                <div class="tags">
+                    <span class="tag">crypto</span>
+                    <span class="tag">tool</span>
+                    <span class="tag">online</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">XOR Brute Force</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">python3 -c "
+for key in range(256):
+    print(bytes([b ^ key for b in bytes.fromhex('hex_string')]))
+"</pre>
+                </div>
+                <p class="command-description">Brute force single-byte XOR cipher by trying all 256 possible keys. Python loops through each key and outputs the result for manual inspection.</p>
+                <div class="tags">
+                    <span class="tag">crypto</span>
+                    <span class="tag">xor</span>
+                    <span class="tag">brute-force</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

