@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWN - CTF Notes</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <button class="burger-menu" id="burgerMenu" aria-label="Toggle sidebar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <h1 class="navbar-title">CTF Notes</h1>
+            <div class="navbar-spacer"></div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <a href="../index.html" class="nav-item">Home</a>
+            <a href="forensics.html" class="nav-item">Forensics</a>
+            <a href="web.html" class="nav-item">Web Exploitation</a>
+            <a href="crypto.html" class="nav-item">Cryptography</a>
+            <a href="pwn.html" class="nav-item active">PWN</a>
+            <a href="osint.html" class="nav-item">OSINT</a>
+            <a href="re.html" class="nav-item">Reverse Engineering</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="hero">
+                <h1>PWN</h1>
+                <p>Binary exploitation, buffer overflows, shellcode, and ROP chains</p>
+            </section>
+
+            <section class="search-section">
+                <input 
+                    type="text" 
+                    id="globalSearch" 
+                    class="search-input" 
+                    placeholder="Search commands... (Type to filter)"
+                    aria-label="Search commands"
+                >
+            </section>
+
+            <!-- Command Blocks -->
+
+            <div class="command-block">
+                <h2 class="command-title">Check Binary Protections</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">checksec --file=binary
+file binary
+ldd binary</pre>
+                </div>
+                <p class="command-description">Analyze binary security features like ASLR, DEP/NX, stack canaries, and PIE. Checksec provides a comprehensive overview. Ldd shows required libraries and addresses.</p>
+                <div class="tags">
+                    <span class="tag">pwn</span>
+                    <span class="tag">binary</span>
+                    <span class="tag">analysis</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Disassemble with objdump</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">objdump -d binary
+objdump -d -M intel binary
+objdump -t binary | grep system</pre>
+                </div>
+                <p class="command-description">Disassemble binary code to analyze functions. The -M intel flag uses Intel syntax instead of AT&T. Grep for interesting functions like system, exec, or main.</p>
+                <div class="tags">
+                    <span class="tag">pwn</span>
+                    <span class="tag">disassembly</span>
+                    <span class="tag">analysis</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">GDB Debugging</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">gdb ./binary
+run &lt;args&gt;
+break *0x400000
+continue
+step
+info registers</pre>
+                </div>
+                <p class="command-description">Use GDB for interactive debugging. Set breakpoints, step through code, inspect memory and registers. Essential for understanding program flow and exploitation.</p>
+                <div class="tags">
+                    <span class="tag">pwn</span>
+                    <span class="tag">debugging</span>
+                    <span class="tag">gdb</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Buffer Overflow Detection</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">python3 -c "print('A'*100)" | ./binary
+gdb -ex "run &lt;&lt;&lt; $(python3 -c 'print(\"A\"*100)')" ./binary</pre>
+                </div>
+                <p class="command-description">Test for buffer overflow vulnerabilities by sending large input. Monitor for segmentation faults or crashes indicating memory corruption.</p>
+                <div class="tags">
+                    <span class="tag">pwn</span>
+                    <span class="tag">overflow</span>
+                    <span class="tag">testing</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Shellcode Generation with msfvenom</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">msfvenom -p linux/x86/shell_bind_tcp -f python
+msfvenom -p linux/x64/exec CMD=/bin/bash -f elf</pre>
+                </div>
+                <p class="command-description">Generate shellcode payloads for various architectures. The -f flag specifies output format (python, hex, elf, etc.). Useful for payload development.</p>
+                <div class="tags">
+                    <span class="tag">pwn</span>
+                    <span class="tag">shellcode</span>
+                    <span class="tag">payload</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Pwntools - Python Exploitation Library</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">from pwn import *
+p = process('./binary')
+p.sendline(b'payload')
+p.recvline()</pre>
+                </div>
+                <p class="command-description">Pwntools simplifies exploitation with convenient functions for process interaction, payloads, and assembly. Essential library for modern CTF pwning.</p>
+                <div class="tags">
+                    <span class="tag">pwn</span>
+                    <span class="tag">python</span>
+                    <span class="tag">tool</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Return-Oriented Programming (ROP)</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">ropper --file binary
+ROPgadget --binary binary --ropchain</pre>
+                </div>
+                <p class="command-description">Find ROP gadgets to build chains when shellcode execution is restricted. Ropper and ROPgadget automatically search for useful gadgets and generate chains.</p>
+                <div class="tags">
+                    <span class="tag">pwn</span>
+                    <span class="tag">rop</span>
+                    <span class="tag">gadgets</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">ASLR Bypass</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">ldd binary | grep libc
+# Leak address via infoleak
+# Calculate offset from leak</pre>
+                </div>
+                <p class="command-description">Address Space Layout Randomization can be bypassed using information leaks. Read addresses from memory, calculate offsets, then exploit with known libc functions.</p>
+                <div class="tags">
+                    <span class="tag">pwn</span>
+                    <span class="tag">aslr</span>
+                    <span class="tag">bypass</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Format String Vulnerability</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">%x.%x.%x.%x
+%n - write
+%s - read</pre>
+                </div>
+                <p class="command-description">Format string bugs occur when user input is passed directly to printf. %x leaks stack values, %s reads memory, %n writes to memory. Powerful exploitation primitive.</p>
+                <div class="tags">
+                    <span class="tag">pwn</span>
+                    <span class="tag">format-string</span>
+                    <span class="tag">vulnerability</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Stack Canary Leaking</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">gdb -ex "break main" -ex "run" ./binary
+gdb> x/wx $rsp+offset</pre>
+                </div>
+                <p class="command-description">Stack canaries protect against buffer overflows. Leak the canary value first using format strings or information disclosure, then overwrite it during exploitation.</p>
+                <div class="tags">
+                    <span class="tag">pwn</span>
+                    <span class="tag">canary</span>
+                    <span class="tag">protection</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Notes - Cybersecurity Knowledge Base</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <button class="burger-menu" id="burgerMenu" aria-label="Toggle sidebar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <h1 class="navbar-title">CTF Notes</h1>
+            <div class="navbar-spacer"></div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item active">Home</a>
+            <a href="pages/forensics.html" class="nav-item">Forensics</a>
+            <a href="pages/web.html" class="nav-item">Web Exploitation</a>
+            <a href="pages/crypto.html" class="nav-item">Cryptography</a>
+            <a href="pages/pwn.html" class="nav-item">PWN</a>
+            <a href="pages/osint.html" class="nav-item">OSINT</a>
+            <a href="pages/re.html" class="nav-item">Reverse Engineering</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="hero">
+                <h1>CTF Notes</h1>
+                <p>Your personal knowledge base for cybersecurity and capture-the-flag competitions.</p>
+            </section>
+
+            <section class="search-section">
+                <input 
+                    type="text" 
+                    id="globalSearch" 
+                    class="search-input" 
+                    placeholder="Search commands... (Type to filter)"
+                    aria-label="Search commands"
+                >
+            </section>
+
+            <section class="categories-grid">
+                <div class="category-card">
+                    <h2>🔍 Forensics</h2>
+                    <p>Digital forensics, file analysis, memory dumps</p>
+                    <a href="pages/forensics.html" class="card-link">View Commands</a>
+                </div>
+                <div class="category-card">
+                    <h2>🌐 Web Exploitation</h2>
+                    <p>SQL injection, XSS, CSRF, web security</p>
+                    <a href="pages/web.html" class="card-link">View Commands</a>
+                </div>
+                <div class="category-card">
+                    <h2>🔐 Cryptography</h2>
+                    <p>Encryption, decryption, hash analysis</p>
+                    <a href="pages/crypto.html" class="card-link">View Commands</a>
+                </div>
+                <div class="category-card">
+                    <h2>💣 PWN</h2>
+                    <p>Binary exploitation, buffer overflows, shellcode</p>
+                    <a href="pages/pwn.html" class="card-link">View Commands</a>
+                </div>
+                <div class="category-card">
+                    <h2>👁️ OSINT</h2>
+                    <p>Open source intelligence, reconnaissance</p>
+                    <a href="pages/osint.html" class="card-link">View Commands</a>
+                </div>
+                <div class="category-card">
+                    <h2>🔧 Reverse Engineering</h2>
+                    <p>Decompilation, disassembly, binary analysis</p>
+                    <a href="pages/reverse.html" class="card-link">View Commands</a>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <h2>About This Knowledge Base</h2>
+                <p>This is a modular, scalable CTF notes repository designed for quick access to essential commands, scripts, and explanations during competitions. Navigate using the sidebar or search across all commands.</p>
+                <h3>Quick Tips</h3>
+                <ul>
+                    <li>Use the search bar to find commands across all categories</li>
+                    <li>Click the copy button on any code block to copy the command</li>
+                    <li>Use tags to filter relevant commands by type</li>
+                    <li>Bookmark your most-used pages for quick access</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="/assets/js/script.js"></script>
+</body>
+</html>

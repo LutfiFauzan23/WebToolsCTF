@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forensics - CTF Notes</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <button class="burger-menu" id="burgerMenu" aria-label="Toggle sidebar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <h1 class="navbar-title">CTF Notes</h1>
+            <div class="navbar-spacer"></div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <a href="../index.html" class="nav-item">Home</a>
+            <a href="forensics.html" class="nav-item active">Forensics</a>
+            <a href="web.html" class="nav-item">Web Exploitation</a>
+            <a href="crypto.html" class="nav-item">Cryptography</a>
+            <a href="pwn.html" class="nav-item">PWN</a>
+            <a href="osint.html" class="nav-item">OSINT</a>
+            <a href="re.html" class="nav-item">Reverse Engineering</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="hero">
+                <h1>Forensics</h1>
+                <p>Digital forensics, file analysis, memory dumps, and evidence collection</p>
+            </section>
+
+            <section class="search-section">
+                <input 
+                    type="text" 
+                    id="globalSearch" 
+                    class="search-input" 
+                    placeholder="Search commands... (Type to filter)"
+                    aria-label="Search commands"
+                >
+            </section>
+
+            <!-- Command Blocks -->
+
+            <div class="command-block">
+                <h2 class="command-title">Cek tipe File</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">file filename</pre>
+                </div>
+                <p class="command-description">Untuk mengecek tipe file yang diberikan</p>
+                <div class="tags">
+                    <span class="tag">forensics</span>
+                    <span class="tag">file-analysis</span>
+                </div>
+            </div>
+            <!-- Strings -->
+            <div class="command-block">
+                <h2 class="command-title">Mencari kata/flag</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">strings filename
+strings namafile | grep flag
+strings namefile | grep -E '^[A-Za-z0-9+/]{20,}' (untuk mencari base64)
+strings namafile | grep -E '^[N-ZA-Mn-za-m]{10,}$' (untuk mencari ROT13)</pre>
+                </div>
+                <p class="command-description">Untuk mencari kata/flag yang kita cari</p>
+                <div class="tags">
+                    <span class="tag">forensics</span>
+                    <span class="tag">reversing</span>
+                </div>
+            </div>
+            <!-- HexDump -->
+            <div class="command-block">
+                <h2 class="command-title">Melihat hexdump menggunakan xxd</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">xxd filename | head -20
+xxd -l 256 filename</pre>
+                </div>
+                <p class="command-description">menampilkan hexdump/header dari sebuah file.Untuk mengidentifikasi file tersebut rusak/tidak</p>
+                <div class="tags">
+                    <span class="tag">forensics</span>
+                    <span class="tag">hex-analysis</span>
+                </div>
+            </div>
+            <!-- Exiftool -->
+            <div class="command-block">
+                <h2 class="command-title">Mengecek metadata dari sebuah file</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">exiftool image.jpg
+exiftool -a image.jpg</pre>
+                </div>
+                <p class="command-description">Mengekstrak metadata dari file yang diberikan</p>
+                <div class="tags">
+                    <span class="tag">forensics</span>
+                    <span class="tag">metadata</span>
+                    <span class="tag">stego</span>
+                </div>
+            </div>
+            <!-- Steghide -->
+            <div class="command-block">
+                <h2 class="command-title">Steganography menggunakan steghide</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">steghide info image.jpg
+steghide extract -sf image.jpg -p password</pre>
+                </div>
+                <p class="command-description">Mengekstrak file yang disembunyikan, biasanya menggunakan password</p>
+                <div class="tags">
+                    <span class="tag">forensics</span>
+                    <span class="tag">stego</span>
+                </div>
+            </div>
+            <!-- Memory dump -->
+            <div class="command-block">
+                <h2 class="command-title">Memory Dump Analysis menggunakan Volatility</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">volatility -f file.raw/mem/dmp/bin imageinfo (untuk mencari imageinfo nya terlebih dahulu)
+volatility -f dump.raw --profile=profilefile pslist</pre>
+                </div>
+                <p class="command-description">Analisis memory dumps running processes, network connections, and artifacts.</p>
+                <div class="tags">
+                    <span class="tag">forensics</span>
+                    <span class="tag">memory</span>
+                </div>
+            </div>
+            <!-- fdisk -->
+            <div class="command-block">
+                <h2 class="command-title">Disk Image Analysis with fdisk</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">fdisk -l disk.img</pre>
+                </div>
+                <p class="command-description">Melihat partisi apa saja yang ada di dalam file disk tersebut</p>
+                <div class="tags">
+                    <span class="tag">forensics</span>
+                    <span class="tag">disk</span>
+                </div>
+            </div>
+            <!-- Foremost -->
+            <div class="command-block">
+                <h2 class="command-title">File Recovery with foremost</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">foremost -i disk.img -o output/
+foremost -i disk.img -t jpg -o output/</pre>
+                </div>
+                <p class="command-description">Melihat dan Mengekstrak file yang sudah dihapus di dalam disk tersebut</p>
+                <div class="tags">
+                    <span class="tag">forensics</span>
+                    <span class="tag">recovery</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Hash Calculation</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">md5sum filename
+sha256sum filename
+sha1sum filename</pre>
+                </div>
+                <p class="command-description">Calculate file hashes for integrity verification and comparison. MD5 (deprecated), SHA1, and SHA256 are common algorithms for forensic purposes.</p>
+                <div class="tags">
+                    <span class="tag">forensics</span>
+                    <span class="tag">hashing</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">PDF Analysis with pdftotext</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">pdftotext file.pdf -
+strings file.pdf</pre>
+                </div>
+                <p class="command-description">Extract text from PDFs or search for hidden content. PDFs can contain metadata, embedded objects, and JavaScript that may contain flags or clues.</p>
+                <div class="tags">
+                    <span class="tag">forensics</span>
+                    <span class="tag">document</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">mount pastisi</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">mkdir -p /mnt/dir
+mount -o ro,loop,offset=$((start*512)) filename /mnt/dir</pre>
+                </div>
+                <p class="command-description"></p>
+                <div class="tags">
+                    <span class="tag">forensics</span>
+                    <span class="tag">partisi</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">hexedit</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">hexedit filename
+FF D8 FF (untuk file jpg/jpeg) header ASCII : JFIF
+89 50 4E 0D 1A 0A (untuk file png) header ASCII : \x89PNG
+47 49 46 38 37 61 (untuk file gif 87a) header ASCII : GIF8
+47 49 46 38 39 61 (untuk file gif 89a)
+42 4D (untuk file BMP) header ASCII : BM
+49 49 2A 00 atau 4D 4D 00 2A (untuk TIFF) header ASCII : II* atau MM\0*
+52 49 46 46 57 45 42 50(untuk RIFF dan WEBP) header ASCII : RIFF...WEBP
+</pre>
+                </div>
+                <p class="command-description"></p>
+                <div class="tags">
+                    <span class="tag">forensics</span>
+                    <span class="tag">partisi</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">qrcode</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">for file in *.png; do zbaring -q --raw "$file" done | tr -d '\n' > flag.txt
+</pre>
+                </div>
+                <p class="command-description"></p>
+                <div class="tags">
+                    <span class="tag">forensics</span>
+                    <span class="tag">partisi</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

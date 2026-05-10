@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT - CTF Notes</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <button class="burger-menu" id="burgerMenu" aria-label="Toggle sidebar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <h1 class="navbar-title">CTF Notes</h1>
+            <div class="navbar-spacer"></div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <a href="../index.html" class="nav-item">Home</a>
+            <a href="forensics.html" class="nav-item">Forensics</a>
+            <a href="web.html" class="nav-item">Web Exploitation</a>
+            <a href="crypto.html" class="nav-item">Cryptography</a>
+            <a href="pwn.html" class="nav-item">PWN</a>
+            <a href="osint.html" class="nav-item active">OSINT</a>
+            <a href="re.html" class="nav-item">Reverse Engineering</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="hero">
+                <h1>OSINT</h1>
+                <p>Open Source Intelligence - Reconnaissance and information gathering</p>
+            </section>
+
+            <section class="search-section">
+                <input 
+                    type="text" 
+                    id="globalSearch" 
+                    class="search-input" 
+                    placeholder="Search commands... (Type to filter)"
+                    aria-label="Search commands"
+                >
+            </section>
+
+            <!-- Command Blocks -->
+
+            <div class="command-block">
+                <h2 class="command-title">Whois Lookup</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">whois example.com</pre>
+                </div>
+                <p class="command-description">Retrieve WHOIS information for a domain including registrar, registration date, and contact details. Useful for gathering passive reconnaissance data on targets.</p>
+                <div class="tags">
+                    <span class="tag">recon</span>
+                    <span class="tag">osint</span>
+                    <span class="tag">domain</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">DNS Enumeration with dig</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">dig example.com @8.8.8.8
+dig example.com MX
+dig example.com NS</pre>
+                </div>
+                <p class="command-description">Perform DNS lookups to find mail servers, nameservers, and other DNS records. The @8.8.8.8 flag queries Google's DNS, while MX and NS queries specific record types.</p>
+                <div class="tags">
+                    <span class="tag">recon</span>
+                    <span class="tag">dns</span>
+                    <span class="tag">osint</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Zone Transfer (AXFR)</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">dig @ns.example.com example.com AXFR</pre>
+                </div>
+                <p class="command-description">Attempt a zone transfer to retrieve all DNS records from a nameserver. This can expose internal infrastructure and subdomains. Often restricted on production systems.</p>
+                <div class="tags">
+                    <span class="tag">recon</span>
+                    <span class="tag">dns</span>
+                    <span class="tag">zone-transfer</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Port Scanning with Nmap</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">nmap -sV example.com
+nmap -p- -sV example.com
+nmap -sC -sV example.com</pre>
+                </div>
+                <p class="command-description">Scan for open ports and identify services. -sV detects versions, -p- scans all ports, and -sC runs default scripts. Essential for network reconnaissance.</p>
+                <div class="tags">
+                    <span class="tag">recon</span>
+                    <span class="tag">nmap</span>
+                    <span class="tag">portscan</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Subdomain Enumeration with amass</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">amass enum -d example.com
+amass enum -d example.com -v</pre>
+                </div>
+                <p class="command-description">Discover subdomains using passive and active reconnaissance techniques. The -v flag enables verbose output showing more detailed information.</p>
+                <div class="tags">
+                    <span class="tag">recon</span>
+                    <span class="tag">subdomain</span>
+                    <span class="tag">osint</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Reverse IP Lookup</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">nslookup -query=PTR 1.2.3.4</pre>
+                </div>
+                <p class="command-description">Perform reverse DNS lookups to find hostnames associated with an IP address. Useful for identifying virtual hosts and hidden services.</p>
+                <div class="tags">
+                    <span class="tag">recon</span>
+                    <span class="tag">dns</span>
+                    <span class="tag">osint</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Web Crawler with curl</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">curl -I example.com
+curl -L example.com</pre>
+                </div>
+                <p class="command-description">Fetch headers (-I) or follow redirects (-L) to gather information about web servers. Headers often reveal server type, CMS, and other technologies in use.</p>
+                <div class="tags">
+                    <span class="tag">recon</span>
+                    <span class="tag">web</span>
+                    <span class="tag">osint</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Google Dorks</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">site:example.com filetype:pdf
+site:example.com inurl:admin
+site:example.com "username"</pre>
+                </div>
+                <p class="command-description">Use advanced Google search operators to find sensitive files, pages, and information indexed by search engines. Powerful technique for passive reconnaissance.</p>
+                <div class="tags">
+                    <span class="tag">osint</span>
+                    <span class="tag">google-dorks</span>
+                    <span class="tag">passive</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Email Finder</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">hunter.io
+rocketreach.co
+clearbit.com</pre>
+                </div>
+                <p class="command-description">Online tools for finding email addresses associated with a domain. Useful for social engineering reconnaissance and identifying key personnel.</p>
+                <div class="tags">
+                    <span class="tag">osint</span>
+                    <span class="tag">email</span>
+                    <span class="tag">recon</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h2 class="command-title">Metadata Extraction with exiftool</h2>
+                <div class="command-code-wrapper">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="command-code">exiftool image.jpg
+exiftool -a image.jpg</pre>
+                </div>
+                <p class="command-description">Extract metadata from files including images, documents, and videos. Can reveal GPS coordinates, camera info, software versions, and author details.</p>
+                <div class="tags">
+                    <span class="tag">osint</span>
+                    <span class="tag">metadata</span>
+                    <span class="tag">forensics</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
